@@ -54,13 +54,14 @@
           <% } %>
         </datalist>
         <label for="risk">Risikostufe</label>
-        <input placeholder="<%= risikoStufen[0] %>"required id="risk" name="risk" list="riskList" class=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+        <input placeholder="<%= risikoStufen[0] %>" required id="risk" name="risk" list="riskList" class=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white  focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
         <datalist id="riskList">
           <% for(const risikoStufe of risikoStufen){ %>
           <option value="<%= risikoStufe %>"></option>
           <% } %>
         </datalist>
       </fieldset>
+      <input type="hidden" name="_csrf" value="<%- csrfToken %>">
       <hr class="mt-4">
       <div class="flex flex-row-reverse p-3">
         <div class="flex-initial pl-3">

@@ -12,6 +12,7 @@ router.get("/", async (req, res) => {
     hypothekPakete: (await prisma.hypothekPaket.findMany({})).map((paket) =>
       paket.bezeichnung + " | " + paket.zinsen + " %"
     ),
+    csrfToken: req.csrfToken(),
   });
 });
 

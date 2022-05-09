@@ -5,8 +5,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function seed() {
-  await prisma.kunde.deleteMany({});
   await prisma.hypothek.deleteMany({});
+  await prisma.kunde.deleteMany({});
   await prisma.hypothekPaket.deleteMany({});
 
   
