@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Hypothek {
+    id Int @id @default(autoincrement())
+    paketBez String
+    paket HypothekPaket @relation(fields: [paketBez], references: [bezeichnung])
+    kundeId Int
+    kunde Kunde @relation(fields: [kundeId], references: [id])
+    wert Decimal
+    risikostufe RisikoStufe
+    rueckzahlungsStatus RueckzahlungsStatus 
+    rueckzahlungsDatum DateTime
+}
+
+model HypothekPaket {
+    bezeichnung String @id
+    zinsen Decimal 
+    hypotheken Hypothek[] 
+}
+
+model Kunde {
+    id Int @id @default(autoincrement())
+    vorname String
+    name String
+    email String
+    telefon String?
+    hypotheken Hypothek[]
+}
+
+enum RisikoStufe {
+    sehrTief
+    tief
+    normal
+    hoch
+    sehrHoch
+}
+
+enum RueckzahlungsStatus {
+    offen
+    bezahlt
+}
