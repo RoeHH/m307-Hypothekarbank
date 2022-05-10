@@ -1,9 +1,9 @@
-import * as express from 'express';
-import * as createError from 'http-errors';
-import * as path from 'path';
-import * as bodyParser from 'body-parser';
-import * as csrf from 'csurf';
-import * as cookieParser from 'cookie-parser';
+import express from 'express';
+import createError from 'http-errors';
+import path from 'path';
+import bodyParser from 'body-parser';
+import csrf from 'csurf';
+import cookieParser from 'cookie-parser';
 
 import indexRouter from './controller/index';
 import newRouter from './controller/new';

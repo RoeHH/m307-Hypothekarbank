@@ -5,9 +5,9 @@
   "main": "./src/app.ts",
   "scripts": {
     "predev": "npx prisma db push && npx prisma generate && npx prisma db seed",
-    "start": "tsnd --respawn --rs ./src/app.ts",
+    "dev": "tsnd --respawn --rs ./src/app.ts",
     "prestart": "npx prisma db push && npx prisma generate",
-    "S": "ts-node --swc ./src/app.ts"
+    "start": "ts-node-transpile-only ./src/app.ts"
   },
   "prisma": {
     "schema": "./src/model/schema.prisma",
