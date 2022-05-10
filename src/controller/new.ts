@@ -34,19 +34,11 @@ router.post("/", async (req, res) => {
                 },
             },
             risikostufe: RisikoStufe[req.body.risk.charAt(0).toLowerCase() + req.body.risk.split(" ").join("").slice(1)],
-            rueckzahlungsDatum: new Date(),//TODO: add date with risk
+            rueckzahlungsDatum: new Date(2067, 11, 24),//TODO: add date with risk
             rueckzahlungsStatus: "offen",
             wert: req.body.wert,
         }
     });
-
-    console.log("Hypothek erfolgreich erstellt");
-    console.log("-----------------------------------------------------");
-    console.log(await prisma.hypothek.findMany({}));
-    
-    
-    
-
   res.redirect("/");
 });
 
