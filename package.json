@@ -6,7 +6,7 @@
   "scripts": {
     "predev": "npx prisma db push && npx prisma generate && npx prisma db seed",
     "dev": "tsnd --respawn --rs ./src/app.ts",
-    "prestart": "npx prisma db push --accept-data-loss --force-reset && npx prisma generate",
+    "prestart": "npx prisma db push && npx prisma generate",
     "start": "ts-node-transpile-only ./src/app.ts"
   },
   "prisma": {
