@@ -9,7 +9,6 @@ async function seed() {
   await prisma.kunde.deleteMany({});
   await prisma.hypothekPaket.deleteMany({});
 
-  
   await prisma.kunde.create({
     data: {
       name: "Doe",
@@ -18,7 +17,6 @@ async function seed() {
       telefon: "+49 123456789",
     },
   });
-
 
   await prisma.hypothekPaket.createMany({
     data: [

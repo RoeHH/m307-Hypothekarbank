@@ -17,6 +17,8 @@ model Hypothek {
     risikostufe RisikoStufe
     rueckzahlungsStatus RueckzahlungsStatus 
     rueckzahlungsDatum DateTime
+    aufnahmeDatum DateTime
+
 }
 
 model HypothekPaket {

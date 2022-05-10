@@ -10,31 +10,38 @@
 </head>
 
 <body>
-  <h1 class="text-3xl font-bold underline self-center">HippiBank</h1>
-   <div class="flex flex-wrap justify-center space-x-3 space-y-3">
-  <% for(const hypothek of hypotheken) { %>
+  <div class="flex flex-wrap justify-center space-x-3 space-y-3">
+    <% for(const hypothek of hypotheken) { %>
     <% if(hypothek.rueckzahlungsStatus === 'offen') { %>
     <div class="flex justify-center">
       <button onclick="window.location='/edit/<%= hypothek.id %>'" class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
-        <h2 class="text-gray-900 text-xl leading-tight font-medium mb-2 text-left"><% if(hypothek.rueckzahlungsDatum > new Date()){ __append("💸")} else {__append("🚨")} %> Hypothek: <%= hypothek.id %></h2>
+        <div class="flex space-x-5">
+          <h2 class="text-gray-900 text-xl leading-tight font-medium mb-2 text-left">
+            <% if(hypothek.rueckzahlungsDatum > new Date()){ __append("💸")} else {__append("🚨")} %> Hypothek: <%= hypothek.id %>
+          </h2>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+          </svg>
+        </div>
         <p class="text-gray-700 text-base mb-4 text-left">
-            Zu bezahlen: <%= hypothek.wert %><br>
-            Bis: <%= hypothek.rueckzahlungsDatum.getDate() + "." + hypothek.rueckzahlungsDatum.getMonth() + "." + hypothek.rueckzahlungsDatum.getFullYear() %><br>
-            Risiko: <%= hypothek.risikostufe %><br>
+          Zu bezahlen: <%= hypothek.wert %><br>
+          Bis: <%= hypothek.rueckzahlungsDatum.getDate() + "." + hypothek.rueckzahlungsDatum.getMonth() + "." + hypothek.rueckzahlungsDatum.getFullYear() %><br>
+          Risiko: <%= hypothek.risikostufe %><br>
         </p>
       </button>
     </div>
     <% } %>
     <% } %>
     <div class="flex justify-center">
-        <button id="new" onclick="window.location='/new'" class="block p-6 rounded-lg shadow-lg bg-white max-w-sm content-center ">
-            <svg xmlns="http://www.w3.org/2000/svg" width="61" height="61" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="16"></line>
-            <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-        </button>
+      <button id="new" onclick="window.location='/new'" class="block p-6 rounded-lg shadow-lg bg-white max-w-sm content-center ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="61" height="61" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+      </button>
     </div>
   </div>
 </body>
+
 </html>
