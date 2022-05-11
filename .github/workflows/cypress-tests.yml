@@ -23,7 +23,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          build: npm run pretest
           start: npm run start
           wait-on: 'http://localhost:3000/'
           record: true
