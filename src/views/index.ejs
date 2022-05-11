@@ -13,7 +13,7 @@
   <div class="flex flex-wrap justify-center space-x-3 space-y-3">
     <% for(const entry of entries) { %>
     <% if(entry.hypothek.rueckzahlungsStatus === 'offen') { %>
-    <div class="flex justify-center">
+    <div class="hypothek flex justify-center">
       <button onclick="window.location='/edit/<%= entry.hypothek.id %>'" class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
         <div class="flex space-x-5">
           <h2 class="text-gray-900 text-xl leading-tight font-medium mb-2 text-left">
@@ -25,7 +25,7 @@
         </div>
         <p class="text-gray-700 text-base mb-4 text-left">
           Zu bezahlen: <%= entry.hypothek.wert %><br>
-          Bis: <%= entry.hypothek.rueckzahlungsDatum.getDate() + "." + entry.hypothek.rueckzahlungsDatum.getMonth() + "." + entry.hypothek.rueckzahlungsDatum.getFullYear() %><br>
+          Bis: <%= entry.hypothek.rueckzahlungsDatum.getDate() + "." + (entry.hypothek.rueckzahlungsDatum.getMonth() + 1) + "." + entry.hypothek.rueckzahlungsDatum.getFullYear() %><br>
           Risiko: <%= entry.hypothek.risikostufe %><br>
           Kunde: <%= entry.kunde.name %> <%= entry.kunde.vorname %>
         </p>

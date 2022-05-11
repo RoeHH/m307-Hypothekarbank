@@ -10,7 +10,7 @@ import {
 let router = express.Router();
 
 router.get("/:id", async (req, res) => {
-  if (Number(req.params.id) !== NaN) {
+  if (!isNaN(Number(req.params.id))) {
     await render([], req, res);
   } else {
     res.redirect("/");
@@ -18,7 +18,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/:id", async (req, res) => {
-  if (Number(req.params.id) !== NaN) {
+  if (!isNaN(Number(req.params.id))) {
 
     const errors = validateBody(req.body, [
       { name: "name", required: true },

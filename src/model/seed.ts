@@ -9,14 +9,6 @@ async function seed() {
   await prisma.kunde.deleteMany({});
   await prisma.hypothekPaket.deleteMany({});
 
-  await prisma.kunde.create({
-    data: {
-      name: "Doe",
-      vorname: "John",
-      email: "john@doe.com",
-      telefon: "+49 123456789",
-    },
-  });
 
   await prisma.hypothekPaket.createMany({
     data: [
@@ -98,6 +90,53 @@ async function seed() {
       },
     ],
   });
+
+
+  await prisma.hypothek.create({
+      data: {
+        kunde: {
+          create: {
+            name: "Mustermann",
+            vorname: "Max",
+            email: "lol@ewf.ch",
+            telefon: "123456789",
+          },
+        },
+        paket: {
+          connect: {
+            bezeichnung: "Fest 2",
+          },
+        },
+        aufnahmeDatum: new Date(),
+        rueckzahlungsDatum: new Date(new Date().getTime() + (360 * 24 * 60 * 60 * 1000)),
+        rueckzahlungsStatus: "offen",
+        risikostufe: "hoch",
+        wert: 100000,
+      },
+    });
+
+      await prisma.hypothek.create({
+      data: {
+        kunde: {
+          create: {
+            name: "nnamretsuM",
+            vorname: "xaM",
+            email: "hc.fwe@lol",
+            telefon: "987654321",
+          },
+        },
+        paket: {
+          connect: {
+            bezeichnung: "Fest 10",
+          },
+        },
+        aufnahmeDatum: new Date(new Date().getTime() - (841 * 24 * 60 * 60 * 1000)),
+        rueckzahlungsDatum: new Date(),
+        rueckzahlungsStatus: "offen",
+        risikostufe: "sehrTief",
+        wert: 1,
+      },
+    });
 }
 
 seed();
