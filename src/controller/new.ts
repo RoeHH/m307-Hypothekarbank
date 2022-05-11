@@ -1,6 +1,10 @@
 import * as express from "express";
 import prisma, { RisikoStufe } from "../model/db";
-import { addRiskToDate, getRisikoStufeFromString } from "./helpers";
+import {
+  addRiskToDate,
+  getRisikoStufeFromString,
+  validateBody,
+} from "./helpers";
 
 let router = express.Router();
 
@@ -9,22 +13,22 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  if (
-    !req.body.name || !req.body.vorname || !req.body.email || !req.body.wert ||
-    !req.body.paket || !req.body.risk
-  ) {
-    await render([new Error("Bitte alle Felder ausfüllen")], req, res);
-    return;
-  }
-
-  if (req.body.phone && !/^[0-9\s+\/\-\)\(]*$/.test(req.body.phone)) {
-    await render(
-      [
-        new Error("Telefonnummer ist ungültig"),
-      ],
-      req,
-      res,
-    );
+  const errors = validateBody(req.body, [
+    { name: "name", required: true },
+    { name: "vorname", required: true },
+    {
+      name: "email",
+      required: true,
+      regex:
+        /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+    },
+    { name: "phone", regex: /^[0-9\s+\/\-\)\(]*$/ },
+    { name: "wert", required: true },
+    { name: "paket", required: true },
+    { name: "risk", required: true },
+  ]);
+  if (errors.length > 0) {
+    await render(errors, req, res);
     return;
   }
 

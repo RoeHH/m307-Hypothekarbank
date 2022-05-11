@@ -4,6 +4,7 @@ import {
   addRiskToDate,
   getRisikoStufeFromString,
   getRueckzahlungsstatusFromString,
+  validateBody,
 } from "./helpers";
 
 let router = express.Router();
@@ -18,22 +19,23 @@ router.get("/:id", async (req, res) => {
 
 router.post("/:id", async (req, res) => {
   if (Number(req.params.id) !== NaN) {
-    if (
-      !req.body.name || !req.body.vorname || !req.body.email ||
-      !req.body.paket || !req.body.risk || !req.body.status
-    ) {
-      await render([new Error("Bitte alle Felder ausfüllen")], req, res);
-      return;
-    }
 
-    if (req.body.phone && !/^[0-9\s+\/\-\)\(]*$/.test(req.body.phone)) {
-      await render(
-        [
-          new Error("Telefonnummer ist ungültig"),
-        ],
-        req,
-        res,
-      );
+    const errors = validateBody(req.body, [
+      { name: "name", required: true },
+      { name: "vorname", required: true },
+      {
+        name: "email",
+        required: true,
+        regex:
+          /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+      },
+      { name: "phone", regex: /^[0-9\s+\/\-\)\(]*$/ },
+      { name: "status", required: true },
+      { name: "paket", required: true },
+      { name: "risk", required: true },
+    ]);
+    if (errors.length > 0) {
+      await render(errors, req, res);
       return;
     }
 
@@ -92,6 +94,8 @@ router.post("/:id", async (req, res) => {
       return;
     }
     res.redirect("/");
+  }else{
+    res.sendStatus(404);
   }
 });
 

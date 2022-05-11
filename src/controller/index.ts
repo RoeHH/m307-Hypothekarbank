@@ -5,12 +5,23 @@ import prisma from "../model/db";
 let router = express.Router();
 
 router.get("/", async (req, res) => {
-  const hypothek = await prisma.hypothek.findMany();
-  res.render("index", {
-    hypotheken: hypothek.sort((
-      a: Hypothek,
-      b: Hypothek,
-    ) => b.aufnahmeDatum.getMilliseconds() - a.aufnahmeDatum.getMilliseconds()),
+  const hypotheken = await prisma.hypothek.findMany();
+  const entriesPromise = hypotheken.sort((
+    a: Hypothek,
+    b: Hypothek,
+  ) => b.aufnahmeDatum.getMilliseconds() - a.aufnahmeDatum.getMilliseconds())
+    .map(async (hypothek) => {
+      return {
+        hypothek: hypothek,
+        kunde: await prisma.kunde.findUnique({
+          where: { id: hypothek.kundeId },
+        }),
+      };
+    });
+  Promise.all(entriesPromise).then((entries) => {
+    res.render("index", {
+      entries,
+    });
   });
 });
 

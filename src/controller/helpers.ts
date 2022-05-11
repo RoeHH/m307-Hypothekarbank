@@ -44,3 +44,25 @@ export function addRiskToDate(date: Date, risikostufe: RisikoStufe): Date {
       return new Date(date.getTime() + (240 * 24 * 60 * 60 * 1000));
   }
 }
+
+export type FieldsToValidate = {
+  name: string;
+  required?: boolean;
+  regex?: RegExp;
+};
+
+export function validateBody(
+  body: any,
+  fields: FieldsToValidate[],
+): Error[]{
+  const errors: Error[] = [];
+  for (const field of fields) {
+    if (field.required && !body[field.name]) {
+      errors.push(new Error(`${field} ist nicht befüllt`));
+    }
+    if (field.regex && !field.regex.test(body[field.name])) {      
+      errors.push(new Error(`${field} ist ungültig`));
+    }  
+  }
+  return errors;
+}
